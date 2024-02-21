@@ -5,6 +5,7 @@ import { Button } from "../Button";
 interface ModalProps {
   isModalOpen: boolean;
   isErrorMessage: boolean;
+  isWarningMessage: boolean;
   setIsModalOpen: (isOpen: boolean) => void;
   modalMessage: string;
 }
@@ -18,8 +19,14 @@ export function ModalCustom(props: ModalProps) {
       className={styles.Modal}
     >
       <h2 className={styles.modalHeader}>{props.modalMessage}</h2>
-      <p>{props.isErrorMessage ? "❌ " : "✅ "}</p>
-      <Button disabled={false} onClick={() => props.setIsModalOpen(false)}>
+      <p>
+        {props.isErrorMessage ? "❌ " : props.isWarningMessage ? "⚠️ " : "✅ "}
+      </p>
+      <Button
+        isPrimary={false}
+        disabled={false}
+        onClick={() => props.setIsModalOpen(false)}
+      >
         Cerrar
       </Button>
     </Modal>

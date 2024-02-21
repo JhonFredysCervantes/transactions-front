@@ -7,7 +7,8 @@ import { format, parseISO } from "date-fns";
 export default function useTransactions() {
   const [transactions, setTransactions] = useState([] as Transaction[]);
 
-  const fetchTransactions = async (params: SearchParameters, handleError: (error: string) => void) => {
+  const fetchTransactions = async (params: SearchParameters, 
+    handleError: (error: string) => void) => {
     let fromDate: string = "";
     let toDate: string = "";
     if (!params.fromDate) {
@@ -25,8 +26,8 @@ export default function useTransactions() {
     const data = await findTransactions(
       params.name,
       params.status,
-      params.fromDate,
-      params.toDate,
+      fromDate,
+      toDate,
       handleError
     );
     data.forEach((transaction: Transaction) => {

@@ -1,4 +1,4 @@
-.Button {
+.ButtonPrimary {
   padding: 10px 20px;
   border: none;
   border-radius: 4px;
@@ -7,12 +7,32 @@
   cursor: pointer;
 }
 
-.Button:hover {
+.ButtonPrimary:hover {
   background-color: #00946f;
 }
 
-.Button:disabled {
-    background-color: #cccccc;
-    color: #666666;
-    cursor: not-allowed;
-  }
+.ButtonPrimary:disabled {
+  background-color: #cccccc;
+  color: #666666;
+  cursor: not-allowed;
+}
+
+.ButtonSecondary {
+  padding: 10px 20px;
+  border: #04a57d 1px solid;
+  border-radius: 4px;
+  background-color: white;
+  color: #04a57d;
+  cursor: pointer;
+}
+
+.ButtonSecondary:hover {
+  background-color: #d5dfdc;
+}
+
+.ButtonSecondary:disabled {
+  background-color: #cccccc;
+  color: #666666;
+  cursor: not-allowed;
+  border: none;
+}

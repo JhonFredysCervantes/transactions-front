@@ -6,6 +6,7 @@ import styles from "./TransactionsFilter.module.css";
 interface TransactionsFilterProps {
   searchParams: SearchParameters;
   onSearch: (searchParams: SearchParameters, handleError: () => void) => void;
+  handleError: () => void;
 }
 
 export function TransactionsFilter(props: TransactionsFilterProps) {
@@ -62,7 +63,7 @@ export function TransactionsFilter(props: TransactionsFilterProps) {
           onChange={handleChangeToDate}
         />
       </label>
-      <Button disabled={false} onClick={() => props.onSearch(searchParams)}>Filtrar</Button>
+      <Button isPrimary={false} disabled={false} onClick={() => props.onSearch(searchParams, props.handleError)}>Filtrar</Button>
     </div>
   );
 }

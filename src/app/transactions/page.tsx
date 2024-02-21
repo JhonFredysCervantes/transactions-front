@@ -8,7 +8,7 @@ import { payTransactions } from "@/services/services";
 import { SearchParameters } from "@/models/SearchParameters";
 import { TransactionsFilter } from "@/components/Filter";
 import styles from "./Transactions.module.css";
-import { ModalCustom } from "@/components/shared/Modal/Modal";
+import { ModalCustom } from "@/components/shared/Modal";
 
 interface TransactionsProps {
   searchParams: SearchParameters;
@@ -20,20 +20,30 @@ export default function TransactionsPage(props: TransactionsProps) {
     [] as string[]
   );
   const [amount, setAmount] = useState(0);
-  const [buttonPayDisabled, setButtonPayDisabled] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalMessage, setModalMessage] = useState("");
   const [isErrorMessage, setIsErrorMessage] = useState(false);
+  const [isWarningMessage, setIsWarningMessage] = useState(false);
 
   const handleSuccess = () => {
     setModalMessage("Operación exitosa");
     setIsErrorMessage(false);
+    setIsWarningMessage(false);
     setIsModalOpen(true);
+    fetchTransactions(props.searchParams, handleError);
   };
 
   const handleError = (error?: string) => {
     setModalMessage("Operación fallida. \n" + error);
     setIsErrorMessage(true);
+    setIsWarningMessage(false);
+    setIsModalOpen(true);
+  };
+
+  const handleWarning = (message: string) => {
+    setModalMessage("Importante. \n" + message);
+    setIsWarningMessage(true);
+    setIsErrorMessage(false);
     setIsModalOpen(true);
   };
 
@@ -49,12 +59,6 @@ export default function TransactionsPage(props: TransactionsProps) {
     } else {
       setSelectedTransactions([...selectedTransactions, id]);
     }
-
-    if (selectedTransactions.length === 0) {
-      setButtonPayDisabled(false);
-    } else {
-      setButtonPayDisabled(true);
-    }
   };
 
   const handleOnChangeAmount = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -67,10 +71,20 @@ export default function TransactionsPage(props: TransactionsProps) {
       <TransactionsFilter
         searchParams={props.searchParams}
         onSearch={fetchTransactions}
+        handleError={handleError}
       />
+      <Button
+        isPrimary={true}
+        disabled={false}
+        onClick={() => {
+          window.location.href = "/transactions/create";
+        }}
+      >
+        Ir a crear
+      </Button>
       <TransactionsList
         transactions={transactions}
-        onChange={handleSelectedTransactions}
+        onSelect={handleSelectedTransactions}
       />
       <div className={styles.paySection}>
         {selectedTransactions.length > 0 && (
@@ -84,13 +98,15 @@ export default function TransactionsPage(props: TransactionsProps) {
           />
         )}
         <Button
-          disabled={buttonPayDisabled}
+          isPrimary={true}
+          disabled={selectedTransactions.length === 0}
           onClick={() =>
             payTransactions(
               selectedTransactions,
               amount,
               handleSuccess,
-              handleError
+              handleError,
+              handleWarning
             )
           }
         >
@@ -102,6 +118,7 @@ export default function TransactionsPage(props: TransactionsProps) {
         setIsModalOpen={setIsModalOpen}
         modalMessage={modalMessage}
         isErrorMessage={isErrorMessage}
+        isWarningMessage={isWarningMessage}
       />
     </div>
   );

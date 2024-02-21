@@ -3,12 +3,12 @@ import styles from "./TransactionsList.module.css";
 
 interface TransactionsListProps {
   transactions: Transaction[];
-  onChange: (id: string) => void;
+  onSelect: (id: string) => void;
 }
 
 export function TransactionsList({
   transactions,
-  onChange,
+  onSelect,
 }: TransactionsListProps) {
   return (
     <table className={styles.TransactionsList}>
@@ -34,7 +34,7 @@ export function TransactionsList({
               <td>
                 <input
                   type="checkbox"
-                  onChange={() => onChange(transaction.id)}
+                  onClick={() => onSelect(transaction.id)}
                 ></input>
               </td>
             </tr>

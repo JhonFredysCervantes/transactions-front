@@ -3,6 +3,20 @@ import axios from "axios";
 const API_URL = "http://localhost:8080/api";
 const TRANSACTIONS_PATH = "/transactions";
 
+export const createTransaction = async (
+  name: string,
+  amount: number,
+  handleSusses: () => void,
+  handleError: (error: string) => void
+) => {
+  try {
+    await axios.post(API_URL + TRANSACTIONS_PATH, { name, amount });
+    handleSusses();
+  } catch (error) {
+    handleError(error as string);
+  }
+};
+
 export const findTransactions = async (
   name: string,
   status: string,
@@ -34,7 +48,8 @@ export const payTransactions = async (
   ids: string[],
   amount: number,
   handleSusses: () => void,
-  handleError: (error: string) => void
+  handleError: (error: string) => void,
+  handleWarning: (string: string) => void
 ) => {
   try {
     const response = await axios.post(`${API_URL + TRANSACTIONS_PATH}/pay`, {
@@ -42,7 +57,12 @@ export const payTransactions = async (
       amount,
     });
     handleSusses();
-    return response.data;
+    var data = response.data;
+    if (
+      data.map((transaction: any) => transaction.status).includes("PENDING")
+    ) {
+      handleWarning("Algunas transacciones no se pudieron pagar");
+    }
   } catch (error) {
     handleError(error as string);
   }
