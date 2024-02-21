@@ -1,0 +1,29 @@
+.Transactions {
+  padding: 2rem;
+  margin: 0 auto;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background-color: #f4f4f4;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  margin-top: 2rem;
+  z-index: 1;
+}
+
+.Transactions h1 {
+  font-size: 2rem;
+  color: #04a57d;
+}
+
+.paySection {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  margin: 2rem;
+}
+
+.payInput {
+  margin-right: 10px;
+}

@@ -7,29 +7,43 @@ export const findTransactions = async (
   name: string,
   status: string,
   fromDate: string,
-  toDate: string
+  toDate: string,
+  handleError: (error: string) => void
 ) => {
   try {
     const params = new URLSearchParams();
-    if (name) params.append('name', name);
-    if (status) params.append('status', status);
-    if (fromDate) params.append('fromDate', fromDate);
-    if (toDate) params.append('toDate', toDate);
-    
-    const queryString = API_URL.concat(TRANSACTIONS_PATH, '?', params.toString());
+    if (name) params.append("name", name);
+    if (status) params.append("status", status);
+    if (fromDate) params.append("fromDate", fromDate);
+    if (toDate) params.append("toDate", toDate);
+
+    const queryString = API_URL.concat(
+      TRANSACTIONS_PATH,
+      "?",
+      params.toString()
+    );
 
     const response = await axios.get(queryString);
     return response.data;
   } catch (error) {
-    console.error(error);
+    handleError(error as string);
   }
 };
 
-export const payTransactions = async (ids: string[], amount: number) => {
+export const payTransactions = async (
+  ids: string[],
+  amount: number,
+  handleSusses: () => void,
+  handleError: (error: string) => void
+) => {
   try {
-    const response = await axios.post(`${API_URL + TRANSACTIONS_PATH}/pay`, { ids, amount });
+    const response = await axios.post(`${API_URL + TRANSACTIONS_PATH}/pay`, {
+      ids,
+      amount,
+    });
+    handleSusses();
     return response.data;
   } catch (error) {
-    console.error(error);
+    handleError(error as string);
   }
 };

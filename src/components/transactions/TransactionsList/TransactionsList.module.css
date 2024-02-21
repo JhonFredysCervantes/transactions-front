@@ -1,12 +1,20 @@
-.TransactionsList__list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
+.TransactionsList {
+  width: 100%;
 }
-
-.TransactionsList > table > tr > th {
-  padding: 0.5rem 1rem;
+.TransactionsList th, .TransactionsList td {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+.TransactionsList th {
+  padding-top: 12px;
+  padding-bottom: 12px;
   text-align: left;
   background-color: #04a57d;
-  color: #fff;
+  color: white;
+}
+.TransactionsList tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+.TransactionsList tr:hover {
+  background-color: #ddd;
 }

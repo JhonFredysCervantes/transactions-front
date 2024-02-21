@@ -1,0 +1,19 @@
+.TransactionsFilter {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  width: 80%;
+  margin-inline: auto;
+  margin-top: 5rem;
+  margin-bottom: 2rem;
+}
+
+.TransactionsFilter label {
+    margin-left: 1rem;
+  }
+
+.TransactionsFilter input {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}

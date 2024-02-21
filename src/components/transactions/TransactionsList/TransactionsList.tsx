@@ -18,21 +18,32 @@ export function TransactionsList({
           <th>Estado</th>
           <th>Monto</th>
           <th>Fecha</th>
+          <th>Hora</th>
           <th>Selección</th>
         </tr>
       </thead>
       <tbody>
-        {transactions.map((transaction) => (
-          <tr key={transaction.id}>
-            <td>{transaction.name}</td>
-            <td>{transaction.status}</td>
-            <td>{transaction.amount}</td>
-            <td>{transaction.createdAt}</td>
-            <td>
-              <input type="checkbox" onChange={() => onChange(transaction.id) }></input>
-            </td>
+        {transactions.length > 0 ? (
+          transactions.map((transaction) => (
+            <tr key={transaction.id}>
+              <td>{transaction.name}</td>
+              <td>{transaction.status}</td>
+              <td>{transaction.amount}</td>
+              <td>{transaction.createdAt.split(" ")[0]}</td>
+              <td>{transaction.createdAt.split(" ")[1]}</td>
+              <td>
+                <input
+                  type="checkbox"
+                  onChange={() => onChange(transaction.id)}
+                ></input>
+              </td>
+            </tr>
+          ))
+        ) : (
+          <tr>
+            <td colSpan={6}>No hay registros</td>
           </tr>
-        ))}
+        )}
       </tbody>
     </table>
   );
