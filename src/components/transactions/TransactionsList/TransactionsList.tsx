@@ -34,6 +34,7 @@ export function TransactionsList({
               <td>
                 <input
                   type="checkbox"
+                  disabled={transaction.status === "PAID"}
                   onClick={() => onSelect(transaction.id)}
                 ></input>
               </td>

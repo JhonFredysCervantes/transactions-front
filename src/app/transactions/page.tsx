@@ -87,16 +87,16 @@ export default function TransactionsPage(props: TransactionsProps) {
         onSelect={handleSelectedTransactions}
       />
       <div className={styles.paySection}>
-        {selectedTransactions.length > 0 && (
-          <input
-            className={styles.payInput}
-            type="number"
-            placeholder="Amount"
-            min={0}
-            value={amount}
-            onChange={handleOnChangeAmount}
-          />
-        )}
+        <span>$</span>
+        <input
+          className={styles.payInput}
+          disabled={selectedTransactions.length === 0}
+          type="number"
+          placeholder="Amount"
+          min={0}
+          value={amount}
+          onChange={handleOnChangeAmount}
+        />
         <Button
           isPrimary={true}
           disabled={selectedTransactions.length === 0}
