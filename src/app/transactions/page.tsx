@@ -4,7 +4,7 @@ import useTransactions from "@/components/Hooks/UseTransactions";
 import { Button } from "@/components/shared/Button";
 import { TransactionsList } from "@/components/transactions/TransactionsList";
 import { useState, useEffect } from "react";
-import { payTransactions } from "@/services/services";
+import { payTransactions, deleteTransactions } from "@/services/services";
 import { SearchParameters } from "@/models/SearchParameters";
 import { TransactionsFilter } from "@/components/Filter";
 import styles from "./Transactions.module.css";
@@ -47,6 +47,13 @@ export default function TransactionsPage(props: TransactionsProps) {
     setIsModalOpen(true);
   };
 
+  const showWarningToDelete = () => {
+    setModalMessage("¿Está seguro que desea eliminar las transacciones seleccionadas?");
+    setIsWarningMessage(true);
+    setIsErrorMessage(false);
+    setIsModalOpen(true);
+  }
+
   useEffect(() => {
     fetchTransactions(props.searchParams, handleError);
   }, []);
@@ -74,7 +81,7 @@ export default function TransactionsPage(props: TransactionsProps) {
         handleError={handleError}
       />
       <Button
-        isPrimary={true}
+        typeButton="secondary"
         disabled={false}
         onClick={() => {
           window.location.href = "/transactions/create";
@@ -98,7 +105,17 @@ export default function TransactionsPage(props: TransactionsProps) {
           onChange={handleOnChangeAmount}
         />
         <Button
-          isPrimary={true}
+          typeButton="warning"
+          disabled={selectedTransactions.length === 0}
+          onClick={() =>
+            //showWarningToDelete()
+            deleteTransactions(selectedTransactions, handleSuccess, handleError)
+          }
+        >
+          Eliminar
+        </Button>
+        <Button
+          typeButton="primary"
           disabled={selectedTransactions.length === 0}
           onClick={() =>
             payTransactions(

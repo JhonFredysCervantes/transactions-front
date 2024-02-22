@@ -67,3 +67,18 @@ export const payTransactions = async (
     handleError(error as string);
   }
 };
+
+export const deleteTransactions = async (
+  ids: string[],
+  handleSusses: () => void,
+  handleError: (error: string) => void
+) => {
+  ids.forEach(async (id) => {
+    try {
+      await axios.delete(API_URL + TRANSACTIONS_PATH + `/${id}`);
+      handleSusses();
+    } catch (error) {
+      handleError(error as string);
+    }
+  });
+}

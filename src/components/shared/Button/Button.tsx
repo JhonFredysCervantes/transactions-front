@@ -1,7 +1,7 @@
 import styles from "./Button.module.css";
 
 interface ButtonProps {
-  isPrimary: boolean;
+  typeButton: string;
   disabled: boolean;
   children: React.ReactNode;
   onClick: () => void;
@@ -12,7 +12,12 @@ export function Button(props: ButtonProps) {
     <button
       disabled={props.disabled}
       onClick={props.onClick}
-      className={props.isPrimary ? styles.ButtonPrimary : styles.ButtonSecondary}
+      className={ 
+        props.typeButton === "primary" ? styles.ButtonPrimary :
+        props.typeButton === "secondary" ? styles.ButtonSecondary :
+        props.typeButton === "warning" ? styles.ButtonWarning :
+        "primary"
+      }
     >
       {props.children}
     </button>

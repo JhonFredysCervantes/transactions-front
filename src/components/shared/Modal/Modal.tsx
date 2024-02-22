@@ -23,7 +23,7 @@ export function ModalCustom(props: ModalProps) {
         {props.isErrorMessage ? "❌ " : props.isWarningMessage ? "⚠️ " : "✅ "}
       </p>
       <Button
-        isPrimary={false}
+        typeButton="secondary"
         disabled={false}
         onClick={() => props.setIsModalOpen(false)}
       >

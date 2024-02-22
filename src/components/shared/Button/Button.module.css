@@ -36,3 +36,23 @@
   cursor: not-allowed;
   border: none;
 }
+
+.ButtonWarning {
+  padding: 10px 20px;
+  border: #c70101 1px solid;
+  border-radius: 4px;
+  background-color: white;
+  color: #c70101;
+  cursor: pointer;
+}
+
+.ButtonWarning:hover {
+  background-color: #d5dfdc;
+}
+
+.ButtonWarning:disabled {
+  background-color: #cccccc;
+  color: #666666;
+  cursor: not-allowed;
+  border: none;
+}
