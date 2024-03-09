@@ -9,6 +9,7 @@ import { SearchParameters } from "@/models/SearchParameters";
 import { TransactionsFilter } from "@/components/Filter";
 import styles from "./Transactions.module.css";
 import { ModalCustom } from "@/components/shared/Modal";
+import Image from "next/image";
 
 interface TransactionsProps {
   searchParams: SearchParameters;
@@ -47,17 +48,6 @@ export default function TransactionsPage(props: TransactionsProps) {
     setIsModalOpen(true);
   };
 
-  const showWarningToDelete = () => {
-    setModalMessage("¿Está seguro que desea eliminar las transacciones seleccionadas?");
-    setIsWarningMessage(true);
-    setIsErrorMessage(false);
-    setIsModalOpen(true);
-  }
-
-  useEffect(() => {
-    fetchTransactions(props.searchParams, handleError);
-  }, []);
-
   const handleSelectedTransactions = (id: string) => {
     if (selectedTransactions.includes(id)) {
       setSelectedTransactions(
@@ -72,9 +62,21 @@ export default function TransactionsPage(props: TransactionsProps) {
     setAmount(Number(event.target.value));
   };
 
+  useEffect(() => {
+    fetchTransactions(props.searchParams, handleError);
+  },);
+
   return (
     <div className={styles.Transactions}>
       <h1>Transacciones</h1>
+      <Image
+        className={styles.Img}
+        src="/images/transaction-icon.jpg"
+        width={100}
+        height={100}
+        alt="Icono de transacción"
+    
+      />
       <TransactionsFilter
         searchParams={props.searchParams}
         onSearch={fetchTransactions}

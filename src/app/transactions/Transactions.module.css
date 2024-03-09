@@ -12,6 +12,12 @@
   z-index: 1;
 }
 
+.Img {
+  width: 100px;
+  height: 100px;
+  margin: 0 auto;
+}
+
 .Transactions h1 {
   font-size: 2rem;
   color: #04a57d;
